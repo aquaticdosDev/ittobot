@@ -2,7 +2,7 @@ let fs = require("fs")
 
 module.exports = async (client,message, newMessage, oldMessage) => {
     if(message.author.bot) return;
-    
+    if(message.content.startsWith("https://")) return;
     let content = { 
         oldContent: `${message.content}`,
         newContent: `${newMessage}`, 
