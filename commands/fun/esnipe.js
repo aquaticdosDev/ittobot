@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {let data;
     .addField("Old message:",`${data.oldContent}`, false)
     .addField("New message:",`${data.newContent}`, false)
     .setTimestamp(new Date())
-    .setFooter({text: `requested by ${message.author.tag}   `, icon_url: `${message.author.avatarURL()}`})
+    .setFooter({text: `requested by ${message.author.tag}   `, iconURL: `${message.author.avatarURL()}`})
     message.channel.send({embeds: [embed]})
 }
 

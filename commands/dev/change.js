@@ -18,7 +18,14 @@ exports.run = async( client, message, args ) => {
             if(!args[1]) {
                 return message.reply("what do you want to change the avatar to? (use the cmd again)");
             }
+
             client.user.setAvatar(`${args[1]}`);
+        break;
+        case "status":
+            if(!args[1]) {
+                return message.reply("what do you want to change the status to? (use the cmd again)");
+            }
+            client.user.setActivity(`${args.slice(1).join(" ")}`);
     }
     
 }
