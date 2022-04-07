@@ -5,7 +5,7 @@ module.exports = async (client,message) => {
     let content = { msgContent: `${message.content}`, 
         author: `${message.author.username}`, 
         avatar: `${message.author.avatarURL()}`, 
-        timestamp: `${message.createdTimestamp}`
+        timestamp: `${new Date}`
     }
     try{ 
     fs.writeFileSync(`./commands/general/assets/snipe/${message.channel.id}.json`, JSON.stringify(content), 'utf-8')
