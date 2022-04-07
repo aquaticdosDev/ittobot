@@ -23,7 +23,7 @@ exports.run = async (client, message, args) => {let data;
     .setColor('RANDOM')
     .setDescription(`${data.msgContent}`)
     .setFooter({text: `requested by ${message.author.tag}   `, iconURL: `${message.author.avatarURL()}`})
-    .setTimestamp(new Date())
+    .setTimestamp(new Date(data.timestamp))
     message.channel.send({embeds: [embed]})
 }
 

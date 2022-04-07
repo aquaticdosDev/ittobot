@@ -5,7 +5,7 @@ module.exports = async (client, message) => {
   
   if (message.author.bot || message.author === client.user) return;
   
- 
+
   if (message.channel.type === "dm") return;
   
   let prefix = client.config.prefix; 
@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
   let sender = message.author;
   
 
-
+  
   message.flags = []
   while (args[0] && args[0][0] === "-") {
     message.flags.push(args.shift().slice(1));
@@ -54,7 +54,6 @@ module.exports = async (client, message) => {
     commandFile.run(client, message, args);
   } catch (error) {
     console.log(error.message);
-  } finally {
   }
 
 }
