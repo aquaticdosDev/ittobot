@@ -2,20 +2,18 @@ const Discord = require("discord.js"), cooldowns = new Discord.Collection()
 
 
 module.exports = async (client, message) => {
-  
   if (message.author.bot || message.author === client.user) return;
-  
-
   if (message.channel.type === "dm") return;
   
+
   let prefix = client.config.prefix; 
   if (!message.content.startsWith(prefix)) return;
-  
+
   let args = message.content.slice(prefix.length).trim().split(/ +/g);
   let msg = message.content.toLowerCase();
   let cmd = args.shift().toLowerCase();
   let sender = message.author;
-  
+
 
   
   message.flags = []
@@ -42,7 +40,7 @@ module.exports = async (client, message) => {
     
     if (now < expirationTime) {
       const timeLeft = (expirationTime - now) / 1000;
-      return message.channel.send(`**${timeLeft.toFixed(1)}s** cooldown remaining.`);
+      return message.reply(`Sorry, you can't use this command for another ${timeLeft.toFixed(1)} seconds.`);
     }
     
     timestamps.set(member.id, now);

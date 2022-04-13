@@ -20,5 +20,5 @@ exports.help = {
 }
 
 exports.conf = {
-    aliases: ["ping"]
+    aliases: ["ping", "latency"]
 }

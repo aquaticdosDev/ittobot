@@ -5,25 +5,25 @@ exports.run = async( client, message, args ) => {
         return;
     }
     if(!args[0]) {
-        return message.reply("what do you want to change?\nusername or avatar? (use the cmd again)");
+        return message.reply("what do you want to change?\nusername or avatar?");
     }
     switch(args[0]) {
         case "username":
             if(!args[1]) {
-                return message.reply("what do you want to change the username to? (use the cmd again)");
+                return message.reply("what do you want to change the username to?");
             }
             client.user.setUsername(`${args[1]}`);
         break;
         case "avatar":
             if(!args[1]) {
-                return message.reply("what do you want to change the avatar to? (use the cmd again)");
+                return message.reply("what do you want to change the avatar to?");
             }
 
             client.user.setAvatar(`${args[1]}`);
         break;
         case "status":
             if(!args[1]) {
-                return message.reply("what do you want to change the status to? (use the cmd again)");
+                return message.reply("what do you want to change the status to?");
             }
             client.user.setActivity(`${args.slice(1).join(" ")}`);
     }
