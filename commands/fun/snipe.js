@@ -17,7 +17,7 @@ exports.run = async (client, message, args) => {let data;
     } catch (error) {
         console.log(error)
     }
-    if(new Date() - Number(data.timestamp) > 1000){ 
+    if(new Date() - Number(data.timestamp) > 14400){ 
         let msg = await message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
         setInterval(() => msg.delete(), 5000);
         return;
