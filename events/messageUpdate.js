@@ -2,7 +2,7 @@ let fs = require("fs")
 
 module.exports = async (client,message, newMessage, oldMessage) => {
     if(message.author.bot) return;
-    if(message.content.startsWith("https://")) return;
+    if(message.content.includes("https://")) return;
     let content = { 
         oldContent: `${message.content}`,
         newContent: `${newMessage}`, 
@@ -12,7 +12,7 @@ module.exports = async (client,message, newMessage, oldMessage) => {
     }
     try{ 
     fs.writeFileSync(`./commands/general/assets/esnipe/${message.channel.id}.json`, JSON.stringify(content), 'utf-8')
-    console.log(content)
+    
 } catch (error) {
     console.log("write: " + error)
 }
