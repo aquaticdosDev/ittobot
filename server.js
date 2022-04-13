@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 
-const token = require("dotenv").config().parsed.TOKEN;
+const token = process.env.BOT_TOKEN;
 
 const clientInit = require("./handler/client");
 
