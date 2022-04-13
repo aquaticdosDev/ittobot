@@ -6,7 +6,8 @@ exports.run = async (client, message, args) => {let data;
     
     if(fs.existsSync(`./commands/general/assets/snipe/${message.channel.id}.json`)){
     } else {
-        message.reply("There is no message to snipe (no file exists for this channel)")
+        let msg = message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+            setInterval(() => msg.delete(), 5000)
         return;
     }
     try {
@@ -16,14 +17,17 @@ exports.run = async (client, message, args) => {let data;
     } catch (error) {
         console.log(error)
     }
-        
-
+    if(new Date() - Number(data.timestamp) > 1000){ 
+        let msg = await message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+        setInterval(() => msg.delete(), 5000);
+        return;
+    }
     let embed = new discord.MessageEmbed()
-    .setAuthor({name: `${data.author}`, iconURL: `${data.avatar}`, url: `${data.avatar}`})
-    .setColor('RANDOM')
-    .setDescription(`${data.msgContent}`)
-    .setFooter({text: `requested by ${message.author.tag}   `, iconURL: `${message.author.avatarURL()}`})
-    .setTimestamp(new Date(data.timestamp))
+        .setAuthor({name: `${data.author}`, iconURL: `${data.avatar}`, url: `${data.avatar}`})
+        .setColor('RANDOM')
+        .setDescription(`${data.msgContent}`)
+        .setFooter({text: `requested by ${message.author.tag}`})
+        .setTimestamp(Number(data.timestamp))
     message.channel.send({embeds: [embed]})
 }
 
@@ -32,5 +36,6 @@ exports.help = {
 }
 
 exports.conf = {
-    aliases: ["snipe"]
+    aliases: ["snipe", "s"],
+    cooldown: 1000
 }

@@ -5,12 +5,10 @@ module.exports = async (client,message) => {
     let content = { msgContent: `${message.content}`, 
         author: `${message.author.username}`, 
         avatar: `${message.author.avatarURL()}`, 
-        timestamp: `${new Date}`
+        timestamp: `${new Date().getTime()}`
     }
     try{ 
     fs.writeFileSync(`./commands/general/assets/snipe/${message.channel.id}.json`, JSON.stringify(content), 'utf-8')
 } catch (error) {
     console.log("write: " + error)
-}
-      
-}
+}}

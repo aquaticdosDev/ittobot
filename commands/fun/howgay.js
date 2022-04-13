@@ -10,7 +10,6 @@ exports.run = async (client, message, args) => {
         .setFooter({text: `requested by ${message.author.tag}`})
         .setTimestamp(new Date())
     message.channel.send({embeds: [embed]})
-
 }
 
 exports.help = {
@@ -18,5 +17,6 @@ exports.help = {
 }
 
 exports.conf = {
-    aliases: ["howgay"]
+    aliases: ["howgay"],
+    cooldown: 5000
 }

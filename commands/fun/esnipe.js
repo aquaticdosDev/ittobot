@@ -3,10 +3,10 @@ const fs = require("fs");
 
 
 exports.run = async (client, message, args) => {let data;
-    
     if(fs.existsSync(`./commands/general/assets/esnipe/${message.channel.id}.json`)){
     } else {
-        message.reply("There is no message to snipe (no file exists for this channel)")
+        let msg = message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+        msg.delete({timeout: 20000})
         return;
     }
     try {
@@ -16,7 +16,11 @@ exports.run = async (client, message, args) => {let data;
     } catch (error) {
         console.log(error)
     }
-        
+    if(new Date() - Number(data.timestamp) > 1000){ 
+        let msg = await message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+        setInterval(() => msg.delete(), 5000);
+        return;
+    }
 
     let embed = new discord.MessageEmbed()
     .setAuthor({name: `${data.author}`, iconURL: `${data.avatar}`, url: `${data.avatar}`})
@@ -33,5 +37,6 @@ exports.help = {
 }
 
 exports.conf = {
-    aliases: ["esnipe"]
+    aliases: ["esnipe", "es"],
+    cooldown: 1000
 }

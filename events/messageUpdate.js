@@ -11,10 +11,9 @@ module.exports = async (client,message, newMessage, oldMessage) => {
         timestamp: `${new Date}`
     }
     try{ 
-    fs.writeFileSync(`./commands/general/assets/esnipe/${message.channel.id}.json`, JSON.stringify(content), 'utf-8')
-    
-} catch (error) {
-    console.log("write: " + error)
-}
+        fs.writeFileSync(`./commands/general/assets/esnipe/${message.channel.id}.json`, JSON.stringify(content), 'utf-8')
+    } catch (error) {
+        console.log("write: " + error)
+    }
       
 }

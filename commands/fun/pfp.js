@@ -18,5 +18,6 @@ exports.conf = {
 }
 
 exports.help = {
-    name: "pfp"
+    name: "pfp",
+    cooldown: 5000
 }
