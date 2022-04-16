@@ -4,9 +4,11 @@ exports.run = async(client,message,args) => {
     let embed;
     let msgChannel;
     let suggestion = args.slice(1).join(" ")
+    let attachment = message.attachments.first();
     if(!args[0]) {
         return message.reply("What kind of suggestion do you want to make?\nBot suggestion or server suggestion?")
     }
+
     try {
     switch(args[0]) {
         case "bot": 
@@ -17,6 +19,9 @@ exports.run = async(client,message,args) => {
                 .setFooter({text: `Suggested by: ${message.author.tag}`})
                 .setTimestamp(new Date())
                 .setColor(0x3994d5)
+            if(attachment) {
+                embed.setImage(attachment.url)
+            }
         break;
         case "server":
             msgChannel = await client.channels.cache.get("951580330387701780")
@@ -26,6 +31,9 @@ exports.run = async(client,message,args) => {
                 .setFooter({text: `Suggested by: ${message.author.tag}`})
                 .setTimestamp(new Date())
                 .setColor(0x3994d5)
+                if(attachment) {
+                    embed.setImage(attachment.url)
+                }
         break;
     };
 
@@ -40,9 +48,7 @@ exports.run = async(client,message,args) => {
     msg.react("👎")
     message.react("📩")
     } catch(error) {
-        message.react("❌")
-        message.reply("Something went wrong, if this keeps occurring contact **aeroplaneticdos#0399**")
-        
+        message.react("❌")  
     }
 }
 
