@@ -52,6 +52,7 @@ module.exports = async (client, message) => {
     commandFile.run(client, message, args);
   } catch (error) {
     console.log(error.message);
+    message.reply("Something went wrong, if this keeps occurring contact **aeroplaneticdos#0399**")
   }
 
 }
