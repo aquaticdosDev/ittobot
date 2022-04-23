@@ -4,8 +4,23 @@ const db = require("quick.db");
 
 exports.run = async (client, message, args) => {
     
-    if(!db.get(`msg_${message.channel.id}`) && !db.get(`attachment_${message.channel.id}`)) {
-        return message.reply("There's no message to snipe\nIf this keeps occuring after deleting a message, contact aeroplaneticdos#0399")
+    if(fs.existsSync(`./commands/general/assets/snipe/${message.channel.id}.json`)){
+    } else {
+        let msg = message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+            setInterval(() => msg.delete(), 5000)
+        return;
+    }
+    try {
+        let unparsedData = fs.readFileSync(`./commands/general/assets/snipe/${message.channel.id}.json`, 'utf-8')
+        let jsondata = JSON.parse(unparsedData)
+        data = jsondata
+    } catch (error) {
+        console.log(error)
+    }
+    if(new Date() - Number(data.timestamp) > 14400){ 
+        let msg = await message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
+        setInterval(() => msg.delete(), 5000);
+        return;
     }
     
     let embed = new discord.MessageEmbed()
@@ -29,5 +44,5 @@ exports.help = {
 
 exports.conf = {
     aliases: ["snipe", "s"],
-    cooldown: 1
+    cooldown: 1000
 }
