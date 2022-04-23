@@ -1,13 +1,10 @@
 const discord = require("discord.js");
-const fs = require("fs");
+const db = require("quick.db")
 
 
 exports.run = async (client, message, args) => {let data;
-    if(fs.existsSync(`./commands/general/assets/esnipe/${message.channel.id}.json`)){
-    } else {
-        let msg = message.reply("There is no message to snipe\nIf this message persist after deleting a message, contact **aeroplaneticdos#0399**")
-        msg.delete({timeout: 20000})
-        return;
+    if(!db.get(`oldMsg_${message.channel.id}`)) {
+        return message.reply("There's no message to snipe\nIf this keeps occuring after deleting a message, contact aeroplaneticdos#0399")
     }
     try {
         let unparsedData = fs.readFileSync(`./commands/general/assets/esnipe/${message.channel.id}.json`, 'utf-8')
@@ -23,12 +20,14 @@ exports.run = async (client, message, args) => {let data;
     }
 
     let embed = new discord.MessageEmbed()
-    .setAuthor({name: `${data.author}`, iconURL: `${data.avatar}`, url: `${data.avatar}`})
-    .setColor('RANDOM')
-    .addField("Old message:",`${data.oldContent}`, false)
-    .addField("New message:",`${data.newContent}`, false)
-    .setTimestamp(new Date(data.timestamp))
-    .setFooter({text: `requested by ${message.author.tag}   `, iconURL: `${message.author.avatarURL()}`})
+        .setAuthor({name: `${db.get(`author_${message.channel.id}`)}`, iconURL: `${db.get(`authorAv_${message.channel.id}`)}`})
+        .setColor('RANDOM')
+        .setFooter({text: `Requested by ${message.author.tag}`})
+        .setTimestamp(new Date(db.get(`timestamp_${message.channel.id}`)))
+        .addField("Old content:", `${db.get(`oldMsg_${message.channel.id}`)}`, false)
+        .addField("New content:", `${db.get(`newMsg_${message.channel.id}`)}`, false)
+        
+        
     message.channel.send({embeds: [embed]})
 }
 
@@ -38,5 +37,5 @@ exports.help = {
 
 exports.conf = {
     aliases: ["esnipe", "es"],
-    cooldown: 1000
+    cooldown: 1
 }

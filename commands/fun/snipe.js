@@ -1,8 +1,8 @@
 const discord = require("discord.js");
-const fs = require("fs");
+const db = require("quick.db");
 
 
-exports.run = async (client, message, args) => {let data;
+exports.run = async (client, message, args) => {
     
     if(fs.existsSync(`./commands/general/assets/snipe/${message.channel.id}.json`)){
     } else {
@@ -22,13 +22,20 @@ exports.run = async (client, message, args) => {let data;
         setInterval(() => msg.delete(), 5000);
         return;
     }
+    
     let embed = new discord.MessageEmbed()
-        .setAuthor({name: `${data.author}`, iconURL: `${data.avatar}`, url: `${data.avatar}`})
+        .setAuthor({name: `${db.get(`author_${message.channel.id}`)}`, iconURL: `${db.get(`authorAv_${message.channel.id}`)}`})
         .setColor('RANDOM')
-        .setDescription(`${data.msgContent}`)
         .setFooter({text: `requested by ${message.author.tag}`})
-        .setTimestamp(Number(data.timestamp))
+        .setTimestamp(new Date(db.get(`timestamp_${message.channel.id}`)))
+        if(db.get(`msg_${message.channel.id}`)){
+            embed.setDescription(`${db.get(`msg_${message.channel.id}`)}`)
+        }
+        if(db.get(`attachment_${message.channel.id}`)){
+            embed.setImage(db.get(`attachment_${message.channel.id}`))
+        }
     message.channel.send({embeds: [embed]})
+
 }
 
 exports.help = {
